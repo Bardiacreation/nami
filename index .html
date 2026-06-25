@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NAMISANATI — Fine Perfumery</title>
+<meta name="description" content="NAMISANATI — handcrafted Persian fine perfumery. The City Collection: Tehran 1340, Abadan, Paris, and the signature Asfalt extrait." />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --ink:#0b0b0c; --ink2:#141416; --paper:#f4f0e9; --line:rgba(244,240,233,0.14);
+    --asfalt:#aeb4ba; --tehran:#c79a5e; --abadan:#c8772a; --paris:#93a0ad;
+    --sans:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --mono:'Space Mono','Courier New',monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans);overflow-x:hidden;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  ::selection{background:var(--tehran);color:#111;}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--tehran);outline-offset:3px;}
+
+  /* nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+      padding:18px clamp(20px,5vw,64px);border-bottom:1px solid transparent;transition:background .5s,border-color .5s;}
+  nav.solid{background:rgba(11,11,12,0.82);backdrop-filter:blur(10px);border-bottom-color:var(--line);}
+  .brand{font-family:var(--sans);font-weight:800;letter-spacing:.24em;font-size:15px;text-decoration:none;color:var(--paper);}
+  .navlinks{display:flex;gap:clamp(14px,2.4vw,34px);}
+  .navlinks a{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,240,233,.62);text-decoration:none;transition:color .35s;}
+  .navlinks a:hover{color:var(--paper);}
+
+  /* hero */
+  header.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;padding:0 24px;}
+  .heroGlow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at 50% 38%,rgba(199,154,94,.16) 0%,rgba(11,11,12,0) 70%);animation:drift 14s ease-in-out infinite alternate;}
+  .hero .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.5em;color:var(--tehran);text-transform:uppercase;margin:0;padding-left:.5em;}
+  .hero h1{font-family:var(--sans);font-weight:900;color:var(--paper);margin:18px 0 0;line-height:.92;letter-spacing:.02em;font-size:clamp(46px,12vw,164px);}
+  .hero .tag{font-family:var(--serif);font-style:italic;color:rgba(244,240,233,.74);font-size:clamp(19px,2.6vw,30px);max-width:620px;margin:30px auto 0;line-height:1.4;}
+  .hero .since{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:rgba(244,240,233,.4);text-transform:uppercase;margin-top:34px;}
+  .scrollCue{position:absolute;bottom:30px;color:rgba(244,240,233,.5);text-decoration:none;font-family:var(--mono);font-size:14px;animation:bob 2.2s ease-in-out infinite;}
+
+  /* sections */
+  .collIntro{text-align:center;padding:clamp(64px,9vw,110px) 24px 0;}
+  .collIntro .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.34em;color:rgba(244,240,233,.55);text-transform:uppercase;margin:0;}
+  .collIntro .lead{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,30px);color:rgba(244,240,233,.72);max-width:560px;margin:18px auto 0;line-height:1.4;}
+
+  .panel{position:relative;padding:clamp(70px,11vw,150px) clamp(20px,6vw,90px);border-top:1px solid var(--line);}
+  .panel .inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(34px,6vw,80px);align-items:center;}
+  .panel .inner.flip{flex-direction:row-reverse;}
+  .media{flex:1 1 380px;min-width:240px;text-align:center;}
+  .media img{width:100%;max-width:540px;margin:0 auto;border-radius:4px;box-shadow:0 30px 70px rgba(0,0,0,.55);}
+  .copy{flex:1 1 360px;min-width:280px;}
+  .copy .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.32em;margin:0;}
+  .copy h2{font-family:var(--sans);font-weight:800;color:var(--paper);font-size:clamp(40px,6vw,76px);line-height:.96;margin:14px 0 0;letter-spacing:.01em;}
+  .copy .line{font-family:var(--serif);font-style:italic;color:rgba(244,240,233,.8);font-size:clamp(19px,2.3vw,26px);line-height:1.42;margin:20px 0 28px;max-width:460px;}
+  .tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;}
+  .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,240,233,.78);padding:7px 13px;border-radius:999px;}
+  .watch{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;}
+
+  dl.notes{margin:0;}
+  .noteRow{display:flex;gap:18px;padding:11px 0;border-top:1px solid var(--line);}
+  .noteRow dt{font-family:var(--mono);font-size:11px;letter-spacing:.14em;min-width:54px;padding-top:2px;}
+  .noteRow dd{margin:0;font-family:var(--serif);font-size:18px;line-height:1.45;color:rgba(244,240,233,.86);}
+
+  /* asfalt */
+  #asfalt{background:linear-gradient(180deg,#050506 0%,#101113 100%);overflow:hidden;}
+  .wet{position:absolute;inset:0;pointer-events:none;opacity:.5;background:radial-gradient(80% 60% at 30% 110%,rgba(174,180,186,.14) 0%,rgba(0,0,0,0) 60%);}
+  #asfalt h2{font-size:clamp(52px,9vw,120px);font-weight:900;letter-spacing:.03em;line-height:.9;}
+  #asfalt .sub{font-family:var(--serif);font-style:italic;color:rgba(244,240,233,.6);font-size:18px;margin:8px 0 0;}
+
+  /* films */
+  #films{padding:clamp(70px,10vw,130px) clamp(20px,6vw,90px);border-top:1px solid var(--line);}
+  #films .head{text-align:center;}
+  #films .head .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.34em;color:rgba(244,240,233,.55);text-transform:uppercase;margin:0 0 10px;}
+  #films .head .lead{font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.4vw,28px);color:rgba(244,240,233,.7);max-width:540px;margin:0 auto clamp(40px,6vw,64px);line-height:1.4;}
+  .filmGrid{max-width:1180px;margin:0 auto;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+  .film{border:1px solid var(--line);border-radius:5px;overflow:hidden;background:var(--ink2);}
+  .film video{width:100%;display:block;aspect-ratio:16/9;background:#000;object-fit:cover;}
+  .film .cap{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;}
+  .film .cap .t{font-family:var(--sans);font-weight:800;font-size:18px;}
+  .film .cap .f{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;}
+
+  /* story */
+  #story{padding:clamp(90px,14vw,190px) clamp(24px,6vw,90px);background:var(--paper);color:var(--ink);}
+  #story .wrap{max-width:760px;margin:0 auto;text-align:center;}
+  #story .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.32em;color:#9a7038;margin:0;}
+  #story h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,58px);line-height:1.18;margin:22px 0 0;letter-spacing:-.01em;}
+  #story p.body{font-family:var(--serif);font-size:clamp(17px,2vw,21px);line-height:1.7;color:rgba(11,11,12,.7);margin:34px auto 0;max-width:600px;}
+  .stats{margin-top:44px;display:inline-flex;gap:36px;flex-wrap:wrap;justify-content:center;}
+  .stats .n{font-family:var(--sans);font-weight:800;font-size:30px;}
+  .stats .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(11,11,12,.5);margin-top:6px;}
+
+  /* index grid */
+  #index{padding:clamp(60px,9vw,120px) clamp(20px,6vw,90px);border-top:1px solid var(--line);}
+  #index h3{font-family:var(--mono);font-size:12px;letter-spacing:.32em;color:rgba(244,240,233,.55);text-transform:uppercase;text-align:center;margin:0 0 44px;}
+  .idxGrid{max-width:1100px;margin:0 auto;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+  .card{border:1px solid var(--line);padding:26px 24px;border-radius:4px;background:var(--ink2);transition:transform .5s cubic-bezier(.2,.7,.2,1),border-color .5s;}
+  .card:hover{transform:translateY(-6px);border-color:rgba(244,240,233,.32);}
+  .card .bar{display:block;width:26px;height:3px;margin-bottom:18px;}
+  .card .name{font-family:var(--sans);font-weight:800;font-size:24px;letter-spacing:.01em;}
+  .card .fam{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,240,233,.55);margin-top:10px;}
+  .card .vol{font-family:var(--mono);font-size:11px;color:rgba(244,240,233,.4);margin-top:16px;}
+
+  /* footer */
+  footer{background:#050506;border-top:1px solid var(--line);padding:clamp(70px,10vw,120px) clamp(24px,6vw,90px) 50px;}
+  footer .wrap{max-width:1100px;margin:0 auto;}
+  footer .top{display:flex;flex-wrap:wrap;gap:50px;justify-content:space-between;}
+  footer .logo{width:240px;max-width:60vw;filter:invert(1) brightness(1.6);}
+  footer .slogan{font-family:var(--serif);font-style:italic;font-size:19px;color:rgba(244,240,233,.6);margin-top:14px;}
+  footer .addr{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:rgba(244,240,233,.5);margin-top:24px;line-height:1.9;}
+  .news .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,233,.6);margin:0;}
+  .newsRow{display:flex;border-bottom:1px solid var(--line);margin-top:18px;gap:10px;}
+  .newsRow input{flex:1;background:transparent;border:none;outline:none;color:var(--paper);font-family:var(--serif);font-size:19px;padding:10px 0;}
+  .newsRow button{background:transparent;border:none;cursor:pointer;color:var(--paper);font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;}
+  .newsDone{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--tehran);margin-top:18px;}
+  footer .legal{border-top:1px solid var(--line);margin-top:56px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  footer .legal span{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:rgba(244,240,233,.4);}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+
+  @keyframes drift{from{transform:translate3d(-3%,0,0) scale(1);}to{transform:translate3d(3%,2%,0) scale(1.08);}}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .heroGlow,.scrollCue{animation:none;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .card{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#top" class="brand">NAMISANATI</a>
+  <div class="navlinks">
+    <a href="#collection">Collection</a>
+    <a href="#asfalt">Asfalt</a>
+    <a href="#films">Films</a>
+    <a href="#story">Story</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="heroGlow"></div>
+  <p class="eyebrow reveal">Fine Perfumery</p>
+  <h1 class="reveal">NAMISANATI</h1>
+  <p class="tag reveal">Scent is the last thing memory lets go of. We seal a city, an hour, a feeling — in glass.</p>
+  <p class="since reveal">Handcrafted in Tehran · since 2018</p>
+  <a class="scrollCue" href="#collection" aria-label="Scroll to the collection">↓</a>
+</header>
+
+<section id="collection">
+  <div class="collIntro">
+    <p class="eyebrow reveal">The City Collection</p>
+    <p class="lead reveal">Three places, bottled. Each one a different light, a different weather of the senses.</p>
+  </div>
+
+  <!-- Tehran -->
+  <section class="panel" style="background:radial-gradient(120% 120% at 15% 0%, rgba(199,154,94,.12) 0%, rgba(11,11,12,0) 55%), var(--ink);">
+    <div class="inner">
+      <div class="media reveal">
+        <img src="assets/tehran.jpg" alt="Tehran 1340 — NAMISANATI Extrait de Parfum" loading="lazy" />
+        <a class="watch" style="color:var(--tehran)" href="#film-tehran">▶ Watch the film</a>
+      </div>
+      <div class="copy reveal">
+        <p class="eyebrow" style="color:var(--tehran)">TEHRAN · ۱۳۴۰</p>
+        <h2>Tehran 1340</h2>
+        <p class="line">Dust suspended in a shaft of afternoon light — a room that still remembers.</p>
+        <div class="tags">
+          <span class="tag" style="border:1px solid #c79a5e66">Woody · Citrus · Fruity</span>
+          <span class="tag" style="border:1px solid #c79a5e66">Warm</span>
+          <span class="tag" style="border:1px solid #c79a5e66">Extrait · 50ml</span>
+        </div>
+        <dl class="notes">
+          <div class="noteRow"><dt style="color:var(--tehran)">TOP</dt><dd>Violet leaf · Pink pepper · Mint · Cardamom</dd></div>
+          <div class="noteRow"><dt style="color:var(--tehran)">HEART</dt><dd>Pineapple · Melon</dd></div>
+          <div class="noteRow"><dt style="color:var(--tehran)">BASE</dt><dd>Cedar · Vanilla</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Abadan -->
+  <section class="panel" style="background:radial-gradient(120% 120% at 85% 0%, rgba(200,119,42,.14) 0%, rgba(11,11,12,0) 55%), var(--ink);">
+    <div class="inner flip">
+      <div class="media reveal">
+        <img src="assets/abadan.jpg" alt="Abadan — NAMISANATI Extrait de Parfum" loading="lazy" />
+        <a class="watch" style="color:var(--abadan)" href="#film-abadan">▶ Watch the film</a>
+      </div>
+      <div class="copy reveal">
+        <p class="eyebrow" style="color:var(--abadan)">ABADAN · THE SOUTH</p>
+        <h2>Abadan</h2>
+        <p class="line">Resin smoke climbing through the heat, slow as the river at dusk.</p>
+        <div class="tags">
+          <span class="tag" style="border:1px solid #c8772a66">Oriental · Woody</span>
+          <span class="tag" style="border:1px solid #c8772a66">Warm</span>
+          <span class="tag" style="border:1px solid #c8772a66">Extrait · 50ml</span>
+        </div>
+        <dl class="notes">
+          <div class="noteRow"><dt style="color:var(--abadan)">TOP</dt><dd>Cedar · Amber · Ylang-ylang</dd></div>
+          <div class="noteRow"><dt style="color:var(--abadan)">HEART</dt><dd>Guaiac wood · Myrrh resin</dd></div>
+          <div class="noteRow"><dt style="color:var(--abadan)">BASE</dt><dd>White sandalwood · Frankincense · Vanilla</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paris -->
+  <section class="panel" style="background:radial-gradient(120% 120% at 15% 0%, rgba(147,160,173,.14) 0%, rgba(11,11,12,0) 55%), var(--ink);">
+    <div class="inner">
+      <div class="media reveal">
+        <img src="assets/paris.jpg" alt="Paris — NAMISANATI Extrait de Parfum" loading="lazy" />
+        <a class="watch" style="color:var(--paris)" href="#film-paris">▶ Watch the film</a>
+      </div>
+      <div class="copy reveal">
+        <p class="eyebrow" style="color:var(--paris)">PARIS · DAWN</p>
+        <h2>Paris</h2>
+        <p class="line">Cold fog, soft leather, and the bitterness of the first cup.</p>
+        <div class="tags">
+          <span class="tag" style="border:1px solid #93a0ad66">Bitter · Leather</span>
+          <span class="tag" style="border:1px solid #93a0ad66">Cool</span>
+          <span class="tag" style="border:1px solid #93a0ad66">Extrait · 50ml</span>
+        </div>
+        <dl class="notes">
+          <div class="noteRow"><dt style="color:var(--paris)">TOP</dt><dd>Maté tea · Leather · Tonka bean</dd></div>
+          <div class="noteRow"><dt style="color:var(--paris)">HEART</dt><dd>Juniper · Cypress</dd></div>
+          <div class="noteRow"><dt style="color:var(--paris)">BASE</dt><dd>Amber</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- Asfalt -->
+<section class="panel" id="asfalt">
+  <div class="wet"></div>
+  <div class="inner" style="position:relative;">
+    <div class="copy reveal">
+      <p class="eyebrow" style="color:var(--asfalt)">THE SIGNATURE</p>
+      <h2>ASFALT</h2>
+      <p class="sub">special for Sohrab</p>
+      <p class="line">The scent of the first rain striking hot asphalt — smoke, resin and the warmth of the road after dark.</p>
+      <div class="tags">
+        <span class="tag" style="border:1px solid #aeb4ba66">Spicy · Oriental</span>
+        <span class="tag" style="border:1px solid #aeb4ba66">Warm</span>
+        <span class="tag" style="border:1px solid #aeb4ba66">Extrait · 50ml</span>
+      </div>
+      <dl class="notes">
+        <div class="noteRow"><dt style="color:var(--asfalt)">TOP</dt><dd>Nutmeg · Cinnamon · Smoke · Oud · Apple · Pear · Peach</dd></div>
+        <div class="noteRow"><dt style="color:var(--asfalt)">HEART</dt><dd>Patchouli · Indian mint · Jasmine</dd></div>
+        <div class="noteRow"><dt style="color:var(--asfalt)">BASE</dt><dd>Tobacco · Sandalwood · Guaiac · Vetiver · Amber · Musk · Vanilla</dd></div>
+      </dl>
+    </div>
+    <div class="media reveal">
+      <img src="assets/asfalt-hero.jpg" alt="ASFALT — NAMISANATI Extrait de Parfum" loading="lazy" />
+      <a class="watch" style="color:var(--asfalt)" href="#film-asfalt">▶ Watch the film</a>
+    </div>
+  </div>
+</section>
+
+<!-- Films -->
+<section id="films">
+  <div class="head">
+    <p class="eyebrow reveal">The Films</p>
+    <p class="lead reveal">Each fragrance, in motion.</p>
+  </div>
+  <div class="filmGrid">
+    <div class="film reveal" id="film-tehran">
+      <video controls preload="metadata" poster="assets/tehran.jpg"><source src="assets/tehran.mp4" type="video/mp4" /></video>
+      <div class="cap"><span class="t">Tehran 1340</span><span class="f" style="color:var(--tehran)">Extrait · 50ml</span></div>
+    </div>
+    <div class="film reveal" id="film-abadan">
+      <video controls preload="metadata" poster="assets/abadan.jpg"><source src="assets/abadan.mp4" type="video/mp4" /></video>
+      <div class="cap"><span class="t">Abadan</span><span class="f" style="color:var(--abadan)">Extrait · 50ml</span></div>
+    </div>
+    <div class="film reveal" id="film-paris">
+      <video controls preload="metadata" poster="assets/paris.jpg"><source src="assets/paris.mp4" type="video/mp4" /></video>
+      <div class="cap"><span class="t">Paris</span><span class="f" style="color:var(--paris)">Extrait · 50ml</span></div>
+    </div>
+    <div class="film reveal" id="film-asfalt">
+      <video controls preload="metadata" poster="assets/asfalt-hero.jpg"><source src="assets/asfalt.mp4" type="video/mp4" /></video>
+      <div class="cap"><span class="t">Asfalt</span><span class="f" style="color:var(--asfalt)">Extrait · 50ml</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Story -->
+<section id="story">
+  <div class="wrap">
+    <p class="eyebrow reveal">The House</p>
+    <h2 class="reveal">A perfume is a memory you can wear. We chase the essence of a moment — the dust of an old room, smoke over a southern river, fog on a foreign street — and hold it still.</h2>
+    <p class="body reveal">Founded in Tehran in 2018, NAMISANATI composes fragrance by hand in small batches, drawing on Persian raw materials and a long tradition of distillation. Each bottle is an extrait — concentrated, deliberate, made to last on the skin and in the memory.</p>
+    <div class="stats reveal">
+      <div><div class="n">2018</div><div class="l">Founded in Tehran</div></div>
+      <div><div class="n">4</div><div class="l">Signature compositions</div></div>
+      <div><div class="n">Extrait</div><div class="l">Highest concentration</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Index -->
+<section id="index">
+  <h3 class="reveal">The Olfactory Index</h3>
+  <div class="idxGrid">
+    <div class="card reveal"><span class="bar" style="background:var(--tehran)"></span><div class="name">Tehran 1340</div><div class="fam">Woody · Citrus · Fruity</div><div class="vol">Extrait de Parfum · 50ml</div></div>
+    <div class="card reveal"><span class="bar" style="background:var(--abadan)"></span><div class="name">Abadan</div><div class="fam">Oriental · Woody</div><div class="vol">Extrait de Parfum · 50ml</div></div>
+    <div class="card reveal"><span class="bar" style="background:var(--paris)"></span><div class="name">Paris</div><div class="fam">Bitter · Leather</div><div class="vol">Extrait de Parfum · 50ml</div></div>
+    <div class="card reveal"><span class="bar" style="background:var(--asfalt)"></span><div class="name">Asfalt</div><div class="fam">Spicy · Oriental</div><div class="vol">Extrait de Parfum · 50ml</div></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="top">
+      <div style="max-width:420px;">
+        <img class="logo" src="assets/logo.png" alt="NAMISANATI — Fine Perfumery" />
+        <p class="slogan">Letters from the senses.</p>
+        <p class="addr">Tehran, Iran<br/>@namisanatiparfums</p>
+      </div>
+      <div style="max-width:360px;width:100%;">
+        <p class="lbl">Join the house list</p>
+        <div class="newsRow" id="newsRow">
+          <input id="email" type="email" placeholder="your email" aria-label="Email address" />
+          <button id="joinBtn">Join →</button>
+        </div>
+        <p class="newsDone" id="newsDone" style="display:none;">You're on the list. We'll be in touch.</p>
+        <div style="display:flex;gap:26px;margin-top:34px;flex-wrap:wrap;">
+          <a class="navlinks" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,240,233,.55);text-decoration:none;" href="#collection">Collection</a>
+          <a style="font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,240,233,.55);text-decoration:none;" href="#films">Films</a>
+          <a style="font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,240,233,.55);text-decoration:none;" href="#story">Story</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <span id="copy">© NAMISANATI · FINE PERFUMERY</span>
+      <span>HANDCRAFTED IN TEHRAN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // nav solidify
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){ nav.classList.toggle('solid', window.scrollY > 80); }, {passive:true});
+
+  // reveal on scroll
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce){ document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
+  else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:0.18});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  }
+
+  // newsletter
+  var btn = document.getElementById('joinBtn');
+  btn.addEventListener('click', function(){
+    var v = document.getElementById('email').value;
+    if(/.+@.+\..+/.test(v)){
+      document.getElementById('newsRow').style.display='none';
+      document.getElementById('newsDone').style.display='block';
+    }
+  });
+  document.getElementById('email').addEventListener('keydown', function(e){ if(e.key==='Enter') btn.click(); });
+
+  // year
+  document.getElementById('copy').textContent = '© ' + new Date().getFullYear() + ' NAMISANATI · FINE PERFUMERY';
+</script>
+</body>
+</html>
